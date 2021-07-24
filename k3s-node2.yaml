@@ -1,0 +1,9 @@
+hostname: k3s-node2
+
+k3os:
+  ntp_servers:
+  - 0.au.pool.ntp.org
+  - 1.au.pool.ntp.org
+  password: rancher
+  server_url: https://172.17.71.53:6443
+  token: K10d715345fe8cf55234c0a58bdfd31dcd333e02951137404ebad6cfb49e37a4a71::server:k3s-cluster

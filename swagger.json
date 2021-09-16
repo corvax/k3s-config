@@ -1,0 +1,956 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "IceGIS API",
+    "description": "IceGIS API RESTful documentation",
+    "contact": {
+      "name": "Vitaly Bondaryuk",
+      "email": "vitaly@base2.com.au",
+      "url": "http://www.base2.com.au"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/dir/barred/{metaId}/dir/{dirId}": {
+      "get": {
+        "tags": [
+          "Barred Directory|Directory"
+        ],
+        "description": "Get directory data",
+        "operationId": "GET.getDir",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dirId",
+            "description": "Directory ID (draft id, release id or current id)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirectoryData"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}/dir/{dirId}/entry": {
+      "get": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Get the list of all entries of a specific directory",
+        "operationId": "GET.listDirEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dirId",
+            "description": "Directory ID (draft id, release id or current id)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DirBarredEntry"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}/dir/{dirId}/entry/{position}": {
+      "get": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Get the entry of a specific directory",
+        "operationId": "GET.getDirEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dirId",
+            "description": "Directory ID (draft id, release id or current id)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "position",
+            "description": "Entry position (1, 2, 3, etc.)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirBarredEntry"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}/entry": {
+      "post": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Create a new entry in the draft directory",
+        "operationId": "POST.newDraftEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entry attributes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirBarredEntry"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Get the list of all entries of the draft directory",
+        "operationId": "GET.listDraftEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DirBarredEntry"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}/entry/{position}": {
+      "delete": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Delete the entry in the draft directory",
+        "operationId": "DELETE.deleteDirEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "position",
+            "description": "Entry position (1, 2, 3, etc.)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Modify the entry in the draft directory",
+        "operationId": "PUT.modifyDirEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "position",
+            "description": "Entry position (1, 2, 3, etc.)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entry attributes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Barred Directory|Entry"
+        ],
+        "description": "Get the entry of the draft directory",
+        "operationId": "GET.getDraftEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "position",
+            "description": "Entry position (1, 2, 3, etc.)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirBarredEntry"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred": {
+      "post": {
+        "tags": [
+          "Barred Directory|Meta"
+        ],
+        "description": "Create a new barred directory",
+        "operationId": "POST.newMeta",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Directory attributes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "directory_entry_title",
+                "operator_id"
+              ],
+              "properties": {
+                "directory_entry_title": {
+                  "type": "string",
+                  "description": "Directory Title",
+                  "maxLength": 80
+                },
+                "operator_id": {
+                  "type": "integer",
+                  "description": "Operator ID"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirectoryMetaData"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Barred Directory|Meta"
+        ],
+        "description": "Get list of all barred directories",
+        "operationId": "GET.listMeta",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DirectoryMetaData"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}": {
+      "delete": {
+        "tags": [
+          "Barred Directory|Meta"
+        ],
+        "description": "Delete the barred directory",
+        "operationId": "DELETE.deleteMeta",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Barred Directory|Meta"
+        ],
+        "description": "Get a barred directory",
+        "operationId": "GET.getMeta",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DirectoryMetaData"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/dir/barred/{metaId}/_release": {
+      "get": {
+        "tags": [
+          "Barred Directory|Meta"
+        ],
+        "description": "Release the barred directory",
+        "operationId": "GET.releaseMeta",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "metaId",
+            "description": "Directory meta ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/db/version": {
+      "get": {
+        "tags": [
+          "Database - Test"
+        ],
+        "description": "Get the database version using query",
+        "operationId": "GET.getVersion",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/db/version3": {
+      "get": {
+        "tags": [
+          "Database - Test"
+        ],
+        "description": "Get the database version using prepared query",
+        "operationId": "GET.getVersion3",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/server/health": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "description": "Get the server readyness status",
+        "operationId": "GET.getHealth",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/server/status": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "description": "Get the server status",
+        "operationId": "GET.getStatus",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StatusInfo"
+            }
+          }
+        }
+      }
+    },
+    "/server/config": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "description": "Get the server config data",
+        "operationId": "GET.getConfig",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/au/user/renew_tokens": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Renew tokens: access token and refresh token. NOTE! Use `refresh_token` as authorization with this request",
+        "operationId": "GET.renewTokens",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserTokens"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/au/user/logout": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Perform a logout",
+        "operationId": "GET.logout",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApiResult"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/au/user/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Perform a login",
+        "operationId": "POST.login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User session attributes",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "password"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "description": "Username",
+                  "maxLength": 15
+                },
+                "password": {
+                  "type": "string",
+                  "description": "User password"
+                },
+                "session_name": {
+                  "type": "string",
+                  "description": "Session name"
+                },
+                "xl_server_address": {
+                  "type": "string",
+                  "description": "XL Server logical address"
+                },
+                "xml_server_address": {
+                  "type": "string",
+                  "description": "XML Server logical address, used as a subscribe name in XLG queue"
+                },
+                "program_version": {
+                  "type": "string",
+                  "description": "Client program version"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserTokens"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearer": {
+      "type": "apiKey",
+      "description": "Send a valid JWT token as apiKey in `Authorization` header value with all requests to protected resources.\r\n\r\n The value must be in the following format: \r\n\r\n   `bearer: aaaaaaa.bbbbbbb.ccccccc`\r\n",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "definitions": {
+    "ApiResult": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "DirBarredEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "DirectoryData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "meta_dir_id": {
+          "type": "integer"
+        },
+        "dir_version": {
+          "type": "integer"
+        },
+        "time_date": {
+          "type": "string",
+          "format": "yyyy-MM-ddTHH:mm:ss"
+        },
+        "status_name": {
+          "type": "string"
+        },
+        "user_last_modified": {
+          "type": "string"
+        }
+      }
+    },
+    "DirectoryMetaData": {
+      "type": "object",
+      "required": [
+        "directory_entry_title",
+        "operator_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "draft_version_num": {
+          "type": "integer"
+        },
+        "draft_dir_id": {
+          "type": "integer"
+        },
+        "draft_last_updated": {
+          "type": "string",
+          "format": "yyyy-MM-ddTHH:mm:ss"
+        },
+        "released_version_num": {
+          "type": "integer"
+        },
+        "released_dir_id": {
+          "type": "integer"
+        },
+        "released_last_updated": {
+          "type": "string",
+          "format": "yyyy-MM-ddTHH:mm:ss"
+        },
+        "current_version_num": {
+          "type": "integer"
+        },
+        "current_dir_id": {
+          "type": "integer"
+        },
+        "current_last_updated": {
+          "type": "string",
+          "format": "yyyy-MM-ddTHH:mm:ss"
+        },
+        "user_who_created_dir": {
+          "type": "integer"
+        },
+        "has_been_deleted": {
+          "type": "boolean"
+        },
+        "directory_entry_title": {
+          "type": "string",
+          "description": "Directory Title",
+          "maxLength": 80
+        },
+        "operator_id": {
+          "type": "integer",
+          "description": "Operator ID"
+        }
+      }
+    },
+    "UserTokens": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "JWT access token"
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "JWT refresh token"
+        }
+      }
+    },
+    "StatusInfo": {
+      "type": "object",
+      "properties": {
+        "app_name": {
+          "type": "string"
+        },
+        "app_version": {
+          "type": "string"
+        },
+        "cpu_count": {
+          "type": "integer"
+        },
+        "cpu_architecture": {
+          "type": "string"
+        },
+        "online": {
+          "type": "boolean"
+        },
+        "os": {
+          "type": "string"
+        },
+        "server_time": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
